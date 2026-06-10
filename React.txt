@@ -1,0 +1,3 @@
+Crear un proyecto		npm create vite@latest
+Framework			React
+Variant 			JavaScript
