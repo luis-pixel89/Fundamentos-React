@@ -1,3 +1,13 @@
+** SUBIR LA CARPETA AL DIRECTORIO **
+git init
+git add .
+git commit -m "primer commit"
+git branch -M main
+git remote add origin https://github.com/LuisLlumiquinga/NOMBRE-DEL-REPO.git
+git push -u origin main
+
+
 Crear un proyecto		npm create vite@latest
 Framework			React
 Variant 			JavaScript
+Ejecutar proyecto		npm run dev

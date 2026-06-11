@@ -1,15 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from 'react';
+import './App.css';
+import data from './data/empleados';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [empleados, setEmpleados] = useState(data);
 
-  return (
-    <h1></h1>
-  )
+  function agregarEmpleado(empleadoNuevo) {
+    setEmpleados([...empleados, empleadoNuevo]);
+  }
+
+  function eliminarEmpleado(id) {
+    const filtrados = empleados.filter((emp) => emp.id !== id);
+    setEmpleados(filtrados);
+  }
+
+  function editarEmpleado(empleadoEditado) {
+    const actualizados = empleados.map((emp) => {
+      if (emp.id === empleadoEditado.id) {
+        return empleadoEditado;
+      }
+      return emp;
+    });
+    setEmpleados(actualizados);
+  }
+
+  return;
 }
 
 export default App

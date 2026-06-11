@@ -1,0 +1,146 @@
+.emp-wrapper {
+    padding: 1.5rem;
+    font-family: sans-serif;
+}
+
+/* Encabezado */
+.emp-header {
+    margin-bottom: 1.5rem;
+}
+
+.emp-header h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 4px;
+}
+
+.emp-header p {
+    font-size: 13px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.emp-count {
+    display: inline-block;
+    background: #ede9fe;
+    color: #5b21b6;
+    font-size: 12px;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+/* Contenedor con scroll en móvil */
+.emp-scroll {
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+    background: #fff;
+}
+
+thead tr {
+    background: #f9fafb;
+}
+
+th {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+tbody tr {
+    transition: background 0.15s;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+tbody tr + tr {
+    border-top: 1px solid #f3f4f6;
+}
+
+td {
+    font-size: 14px;
+    color: #374151;
+    padding: 12px 16px;
+    vertical-align: middle;
+}
+
+/* Badge de estado */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.badge.activo {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge.inactivo {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Botones */
+.btn-edit {
+    background: #ede9fe;
+    color: #5b21b6;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-right: 6px;
+    transition: background 0.15s;
+}
+
+.btn-edit:hover {
+    background: #ddd6fe;
+}
+
+.btn-del {
+    background: #fee2e2;
+    color: #991b1b;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.btn-del:hover {
+    background: #fecaca;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    th, td {
+        padding: 10px 12px;
+    }
+
+    .btn-edit, .btn-del {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}
