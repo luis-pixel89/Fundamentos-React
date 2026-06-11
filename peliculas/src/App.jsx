@@ -10,7 +10,7 @@ function Pelicula({ titulo }) {
       padding: '10px',
       margin: '5px',
       cursor: 'pointer',
-      backgroundColor: esFavorita ? "⭐" : ""
+      backgroundColor: esFavorita ? 'skyblue' : 'white',
     }} onClick={() => {
       setEsFavorita(!esFavorita);
     }}>

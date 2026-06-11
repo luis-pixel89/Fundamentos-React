@@ -8,6 +8,9 @@ git push -u origin main
 
 
 Crear un proyecto		npm create vite@latest
+				npm create vite@latest tienda-videojuegos -- --template react
+
 Framework			React
 Variant 			JavaScript
 Ejecutar proyecto		npm run dev
+Librería navegación		npm install react-router-dom

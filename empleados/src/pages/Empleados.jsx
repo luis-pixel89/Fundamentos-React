@@ -1,6 +1,14 @@
+import { useNavigate } from 'react-router-dom';
 import './Empleados.css';
 
-function Empleados({ empleados, onEliminar, onEditar }) {
+function Empleados({ empleados, onEliminar }) {
+
+    const navigate = useNavigate();
+
+    function manejarEditar(emp) {
+        navigate('/editar', { state: { empleado: emp } });
+    }
+
     return (
         <div className="emp-wrapper">
             <div className="emp-header">
@@ -32,7 +40,7 @@ function Empleados({ empleados, onEliminar, onEditar }) {
                                 <td>{emp.edad}</td>
                                 <td>{emp.departamento}</td>
                                 <td>{emp.turno}</td>
-                                <td>{emp.ingreso}</td>
+                                <td>{emp.fechaIngreso}</td>
                                 <td>{emp.salario}</td>
                                 <td>
                                     <span className={`badge ${emp.activo ? 'activo' : 'inactivo'}`}>
@@ -42,7 +50,7 @@ function Empleados({ empleados, onEliminar, onEditar }) {
                                 <td>
                                     <button
                                         className="btn-edit"
-                                        onClick={() => onEditar(emp)}
+                                        onClick={() => manejarEditar(emp)}
                                     >
                                         Editar
                                     </button>

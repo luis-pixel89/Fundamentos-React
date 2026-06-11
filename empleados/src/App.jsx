@@ -1,6 +1,11 @@
 import { useState } from 'react';
 import './App.css';
 import data from './data/empleados';
+import FormularioEmpleado from './pages/FormularioEmpleado';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Empleados from './pages/Empleados';
+import Navbar from './components/Navbar';
+import NoEncontrada from './pages/Noencontrada';
 
 function App() {
   const [empleados, setEmpleados] = useState(data);
@@ -24,7 +29,44 @@ function App() {
     setEmpleados(actualizados);
   }
 
-  return;
+  function manejarGuardar(empleado) {
+    const existe = empleados.find((emp) => emp.id === empleado.id);
+
+    if (existe) {
+      editarEmpleado(empleado);
+    } else {
+      agregarEmpleado(empleado);
+    }
+  }
+
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Empleados empleados={empleados} onEliminar={eliminarEmpleado} />}
+        />
+
+        <Route
+          path="/nuevo"
+          element={<FormularioEmpleado onGuardar={manejarGuardar} />}
+        />
+
+        <Route
+          path="/editar"
+          element={<FormularioEmpleado onGuardar={manejarGuardar} />}
+        />
+
+        <Route
+          path="*"
+          element={<NoEncontrada />}
+        />
+      </Routes>
+
+    </BrowserRouter >
+  );
 }
 
 export default App
