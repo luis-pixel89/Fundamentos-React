@@ -15,6 +15,32 @@ function FormularioVideojuego({ onGuardar }) {
     const [precio, setPrecio] = useState("");
     const [disponible, setDisponible] = useState(false);
     const [progreso, setProgreso] = useState(0);
+    const [fechaLanzamiento, setFechaLanzamiento] = useState("");
+    const [sinopsis, setSinopsis] = useState("");
+    const [calificacion, setCalificacion] = useState("");
+
+    const [errores, setErrores] = useState({});
+
+    const hoy = new Date().toISOString().split("T")[0];   //YYYY-MM-DD
+
+    function validarFormulario() {
+        const erroresActivos = {};
+
+        if (titulo.trim() == "") {
+            erroresActivos.titulo="EL nombre del video juego no pude estar vacio o contener solo espacios";
+        }
+
+        const cal = parseInt(calificacion);
+        if (isNaN(cal) || cal < 1 || cal > 100) {
+            erroresActivos.calificacion="La calificacion debe estar entre 1 y 100.";
+        }
+
+        if (sinopsis.trim().length < 10) {
+            erroresActivos.sinopsis="La sinopsis debe contener minimo 10 caracteres.";
+        }
+
+        return erroresActivos;
+    }
 
     useEffect(() => {
         if (videojuegoRecuperado) {
@@ -25,19 +51,39 @@ function FormularioVideojuego({ onGuardar }) {
             setPrecio(videojuegoRecuperado.precio);
             setDisponible(videojuegoRecuperado.disponible);
             setProgreso(videojuegoRecuperado.progreso ?? true);
+            setFechaLanzamiento(videojuegoRecuperado.fechaLanzamiento || "");
+            setSinopsis(videojuegoRecuperado.sinopsis || "");
+            setCalificacion(videojuegoRecuperado.calificacion || "");
         } else {
             setTitulo("");
             setGenero("");
             setPlataforma("");
             setLanzamiento("");
             setPrecio("");
-            setDisponible("");
-            setProgreso(true);
+            setDisponible(false);
+            setProgreso(0);
+            setFechaLanzamiento("");
+            setSinopsis("");
+            setCalificacion("");
         }
     }, [videojuegoRecuperado]);
 
     function manejarGuardar(e) {
         e.preventDefault();
+
+        if (fechaLanzamiento > hoy) {
+            alert("La fecha de lanzamiento no puede ser futura.")
+            return;
+        }
+
+        const erroresActivos = validarFormulario();
+
+        if (Object.keys(erroresActivos).length > 0) {
+            setErrores(erroresActivos);
+            return;
+        }
+
+        setErrores({});
 
         const videojuego = {
             id: videojuegoRecuperado ? videojuegoRecuperado.id : Date.now(),
@@ -48,6 +94,9 @@ function FormularioVideojuego({ onGuardar }) {
             precio: parseFloat(precio),
             disponible,
             progreso: parseFloat(progreso),
+            fechaLanzamiento,
+            sinopsis,
+            calificacion: parseInt(calificacion),
         };
 
         onGuardar(videojuego);
@@ -68,7 +117,8 @@ function FormularioVideojuego({ onGuardar }) {
                     <label>Título</label>
                     <input type="text" value={titulo}
                         onChange={(e) => setTitulo(e.target.value)}
-                        placeholder="Ej: Elden Ring" required />
+                        placeholder="Ej: Elden Ring"  />
+                    {errores.titulo && <span className="error-mensaje">{errores.titulo}</span>}
                 </div>
                 <div className="campo">
                     <label>Género</label>
@@ -126,11 +176,46 @@ function FormularioVideojuego({ onGuardar }) {
                         Disponible
                     </label>
                 </div>
+
+                <div className="campo">
+                    <label>Fecha de lanzamiento</label>
+                    <input
+                        type="date"
+                        value={fechaLanzamiento}
+                        onChange={(e) => setFechaLanzamiento(e.target.value)}
+                        max={hoy}
+                        required
+                    />
+                </div>
+
+                <div className="campo campo-textarea">
+                    <label>Sinopsis</label>
+                    <textarea
+                        value={sinopsis}
+                        onChange={(e) => setSinopsis(e.target.value)}
+                        placeholder="Escribe una breve reseña (10 a 250 caracteres)"
+
+                    />
+                    <span className="contador">{sinopsis.length}/250</span>
+                    {errores.sinopsis && <span className="error-mensaje">{errores.sinopsis}</span>}
+                </div>
+
+                <div className="campo">
+                    <label>Calificacion (1-100)</label>
+                    <input
+                        type="number"
+                        value={calificacion}
+                        onChange={(e) => setCalificacion(e.target.value)}
+                        placeholder="Ej: 87"
+                        step={1}
+                    />
+                    {errores.calificacion && <span className="error-mensaje">{errores.calificacion}</span>}
+                </div>
             </div>
 
             <div className="botones">
                 <button type="submit" className="btn-guardar">Guardar</button>
-                <button type="button" className="btn-cancelar" onClick={manejarCancelar}>Cancelar</button>                
+                <button type="button" className="btn-cancelar" onClick={manejarCancelar}>Cancelar</button>
             </div>
         </form>
     );

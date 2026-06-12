@@ -1,64 +1,135 @@
+/* ── Variables locales ── */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-glow: rgba(37, 99, 235, 0.15);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.07);
+  --border: #e2e8f0;
+  --border-focus: #2563eb;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.07);
+  --shadow-focus: 0 0 0 3.5px var(--primary-glow);
+}
+
+/* ── Contenedor principal ── */
 .formulario-empleado {
-  max-width: 900px;
-  margin: 1.5rem auto;
-  padding: 1.5rem 2rem;
+  max-width: 860px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem;
   background: var(--bg);
-  border-radius: 6px;
-  border: 1px solid #d1d5db;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
   text-align: left;
 }
 
+/* ── Título ── */
 .formulario-empleado h2 {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.15rem;
+  font-weight: 700;
   color: var(--text-h);
-  margin-bottom: 1.25rem;
-  padding-bottom: 0.6rem;
-  border-bottom: 2px solid #2563eb;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--primary);
+  letter-spacing: -0.01em;
 }
 
-/* ── campo: label + input en una sola línea (desktop) ── */
+/* ── Campo: label + input en línea (desktop) ── */
 .campo {
   display: grid;
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 170px 1fr;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
 
 .campo label {
   font-size: 13px;
   font-weight: 500;
-  color: #374151;
+  color: #475569;
   font-family: var(--sans);
   text-align: right;
   white-space: nowrap;
 }
 
+/* ── Inputs, selects y textarea ── */
 .campo input,
-.campo select {
-  padding: 7px 10px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
+.campo select,
+.campo textarea {
+  padding: 9px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
   font-size: 14px;
   font-family: var(--sans);
   color: var(--text-h);
   background: var(--bg);
-  transition: border-color 0.15s, box-shadow 0.15s;
   outline: none;
   width: 100%;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover {
+  border-color: #94a3b8;
 }
 
 .campo input:focus,
-.campo select:focus {
-  border-color: #2563eb;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+.campo select:focus,
+.campo textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+  background: #f8faff;
 }
 
-/* checkbox: alineado igual que los demás campos */
+/* Eliminar flechas de inputs numéricos */
+.campo input[type="number"]::-webkit-inner-spin-button,
+.campo input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── Textarea con expansión al focus ── */
+.campo textarea {
+  resize: none;
+  min-height: 72px;
+  max-height: 200px;
+  overflow-y: auto;
+  line-height: 1.55;
+  transition: all 0.3s ease, min-height 0.3s ease;
+}
+
+.campo textarea:focus {
+  min-height: 120px;
+  border-color: var(--border-focus);
+  box-shadow: var(--shadow-focus);
+  background: #f8faff;
+}
+
+.contador {
+  font-size: 11px;
+  color: #94a3b8;
+  text-align: right;
+  margin-top: 3px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Campo textarea: una sola columna ── */
+.campo-textarea {
+  grid-template-columns: 1fr;
+  gap: 4px;
+}
+
+.campo-textarea label {
+  text-align: left;
+}
+
+/* ── Checkbox ── */
 .checkbox-container {
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 170px 1fr;
 }
 
 .checkbox-container label {
@@ -75,69 +146,140 @@
 }
 
 .checkbox-container input[type="checkbox"] {
-  width: 15px;
-  height: 15px;
-  accent-color: #2563eb;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary);
   cursor: pointer;
+  border-radius: 4px;
 }
 
-/* botones */
+/* ── Mensajes de error animados ── */
+@keyframes errorEntrada {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-mensaje {
+  display: block;
+  color: var(--danger);
+  background: var(--danger-bg);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 9px;
+  border-radius: 5px;
+  margin-top: 4px;
+  border-left: 3px solid var(--danger);
+  animation: errorEntrada 0.25s ease both;
+  letter-spacing: 0.01em;
+}
+
+/* ── Botones ── */
 .botones {
   display: flex;
   justify-content: flex-end;
   gap: 0.6rem;
-  margin-top: 1.25rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
 }
 
 .btn-guardar,
 .btn-cancelar {
-  padding: 7px 24px;
+  padding: 9px 26px;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   font-family: var(--sans);
   cursor: pointer;
-  transition: background 0.15s;
+  transition: all 0.25s ease;
+  letter-spacing: 0.01em;
 }
 
-.btn-guardar       { background: #2563eb; color: #fff; }
-.btn-guardar:hover { background: #1d4ed8; }
-.btn-cancelar      { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
-.btn-cancelar:hover { background: #e5e7eb; }
+.btn-guardar {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
 
-/* ── tablet ≤768px — label arriba, input abajo ── */
+.btn-guardar:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-guardar:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btn-cancelar {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1.5px solid var(--border);
+}
+
+.btn-cancelar:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+/* ── Tablet ≤768px ── */
 @media (max-width: 768px) {
-  .formulario-empleado { margin: 1rem; padding: 1.25rem 1.25rem; }
+  .formulario-empleado {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+  }
 
   .campo {
     grid-template-columns: 1fr;
     gap: 4px;
   }
 
-  .campo label { text-align: left; }
+  .campo label {
+    text-align: left;
+  }
 
-  .checkbox-container label { grid-column: 1; }
+  .checkbox-container label {
+    grid-column: 1;
+  }
 
-  .botones { justify-content: stretch; }
+  .botones {
+    justify-content: stretch;
+  }
+
   .btn-guardar,
-  .btn-cancelar { flex: 1; }
+  .btn-cancelar {
+    flex: 1;
+  }
 }
 
-/* ── mobile ≤480px ── */
+/* ── Mobile ≤480px ── */
 @media (max-width: 480px) {
   .formulario-empleado {
     margin: 0;
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     border-radius: 0;
     border-left: none;
     border-right: none;
+    box-shadow: none;
   }
 
-  .botones { flex-direction: column; gap: 0.5rem; }
-
   .campo input,
-  .campo select { font-size: 16px; }
+  .campo select,
+  .campo textarea {
+    font-size: 16px; /* evita zoom automático en iOS */
+  }
+
+  .botones {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
