@@ -15,7 +15,7 @@ function App() {
         return datosGuardados ? JSON.parse(datosGuardados) : data;
     });
 
-    const [alerta, setAlerta]=useState(null);
+    const [alerta, setAlerta] = useState(null);
 
     useEffect(() => {
         localStorage.setItem("lista_videojuegos", JSON.stringify(videojuegos));
@@ -51,13 +51,15 @@ function App() {
             agregarVideojuego(videojuego);
             setAlerta("Video juego agregado correctamente");
         }
+    }
 
-        
+    function saludarTienda(nombre){
+        alert("Bienvenido a "+nombre)
     }
 
     return (
         <BrowserRouter>
-            <Navbar />
+            <Navbar onNombre={"GamingStoreKrakeDev"} onSaludar={saludarTienda}/>
             <Routes>
                 <Route
                     path="/"
@@ -80,10 +82,10 @@ function App() {
                 />
             </Routes>
 
-            {alerta&&(
+            {alerta && (
                 <AlertaNotificacion
                     mensaje={alerta}
-                    onOcultar={()=>setAlerta(null)}
+                    onOcultar={() => setAlerta(null)}
                 />
             )}
         </BrowserRouter>

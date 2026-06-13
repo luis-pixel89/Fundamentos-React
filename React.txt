@@ -14,3 +14,8 @@ Framework			React
 Variant 			JavaScript
 Ejecutar proyecto		npm run dev
 Librería navegación		npm install react-router-dom
+
+SKILLS				https://www.skills.sh/
+PALETA DE COLORES		https://coolors.co/
+ICONOS				https://mui.com/material-ui/material-icons/
+
